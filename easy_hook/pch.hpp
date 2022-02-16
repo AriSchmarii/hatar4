@@ -36,6 +36,32 @@ if (MH_CreateHook(target, hk, (void**)&og) != MH_OK) \
    std::cout << "cant hook " << name << std::endl; \
 else \
    std::cout << "hooked " << name << std::endl; \
+
+bool init_console() { //ugly peace of shit
+	if (!AllocConsole())
+		return false;
+	const HANDLE console_handle = GetStdHandle(STD_OUTPUT_HANDLE);
+	const HWND console_window = GetConsoleWindow();
+	if (!console_handle || console_window)
+		return false;
+	freopen_s(reinterpret_cast<FILE**>(stdout), "CONOUT$", "w", stdout);
+	SetConsoleTitleW(L"hatar4.cheats");
+	SetConsoleCP(CP_UTF8);
+	SetConsoleOutputCP(CP_UTF8);
+	//size of the console
+	RECT lp_rect{};
+	GetWindowRect(console_window, &lp_rect);
+	MoveWindow(console_window, lp_rect.left, lp_rect.top, 900, 500, TRUE);
+	//color + alpha; credits to aki for this part
+	CONSOLE_SCREEN_BUFFER_INFOEX csbiInfo{};
+	csbiInfo.cbSize = sizeof(csbiInfo);
+	GetConsoleScreenBufferInfoEx(console_handle, &csbiInfo);
+	csbiInfo.ColorTable[1] = RGB(229, 137, 226);
+	SetConsoleScreenBufferInfoEx(console_handle, &csbiInfo);
+	SetConsoleTextAttribute(console_handle, 1);
+	SetLayeredWindowAttributes(console_window, NULL, 245, LWA_ALPHA);
+	return true;
+}
 /*
 x-man: pattern scanner
 senpai ari: easy-hook
