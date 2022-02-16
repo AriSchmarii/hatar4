@@ -76,3 +76,5 @@ public:
 private:
 	std::vector<pattern_hisnt> pattern_list;
 };
+
+bool init_console();
