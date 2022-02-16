@@ -26,26 +26,8 @@ bool hkWriteBitBufferDword(__int64 bit_buffer, int value, int bits) { //nighfall
 }
 
 DWORD mainThread(LPVOID lp_param) {
-	if (AllocConsole()) {
-		const HANDLE console_handle = GetStdHandle(STD_OUTPUT_HANDLE);
-		const HWND console_window = GetConsoleWindow();
-		freopen_s(reinterpret_cast<FILE**>(stdout), "CONOUT$", "w", stdout);
-		SetConsoleTitleW(L"hatar4.cheats");
-		SetConsoleCP(CP_UTF8);
-		SetConsoleOutputCP(CP_UTF8);
-		//size of the console
-		RECT lp_rect{};
-		GetWindowRect(console_window, &lp_rect);
-		MoveWindow(console_window, lp_rect.left, lp_rect.top, 900, 500, TRUE);
-		//color + alpha; credits to aki for this part
-		CONSOLE_SCREEN_BUFFER_INFOEX csbiInfo{};
-		csbiInfo.cbSize = sizeof(csbiInfo);
-		GetConsoleScreenBufferInfoEx(console_handle, &csbiInfo);
-		csbiInfo.ColorTable[1] = RGB(229, 137, 226);
-		SetConsoleScreenBufferInfoEx(console_handle, &csbiInfo);
-		SetConsoleTextAttribute(console_handle, 1);
-		SetLayeredWindowAttributes(console_window, NULL, 245, LWA_ALPHA);
-	}
+	if (!init_console())
+		return EXIT_FAILURE;
 	MH_Initialize();
 	std::cout << R"(
  _           _             _  _        _                _       
