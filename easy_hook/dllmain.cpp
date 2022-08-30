@@ -1,16 +1,16 @@
 ﻿#include "pch.hpp"
 
-bool g_running = { true }, g_crash = { false };
-unsigned short g_tampered_buffer_count = { 0 };
+static bool g_running = { true }, g_crash = { false };
+static unsigned short g_tampered_buffer_count = { 0 };
 
 using uWriteBitBufferQword = bool(*)(__int64 bit_buffer, __int64 value, int bits);
-uWriteBitBufferQword write_bit_buffer_qword{};
+static uWriteBitBufferQword write_bit_buffer_qword{};
 
 using uWriteBitBufferDword = bool(*)(__int64 bit_buffer, int value, int bits);
-uWriteBitBufferDword write_bit_buffer_dword{};
+static uWriteBitBufferDword write_bit_buffer_dword{};
 
-bool (*ogWriteBitBufferDword)(__int64 bit_buffer, int value, int bits) = { nullptr };
-bool hkWriteBitBufferDword(__int64 bit_buffer, int value, int bits) { //nighfall devs hate this trick >:(
+static bool (*ogWriteBitBufferDword)(__int64 bit_buffer, int value, int bits) = { nullptr };
+static bool hkWriteBitBufferDword(__int64 bit_buffer, int value, int bits) { //nighfall devs hate this trick >:(
 	if (!g_crash) 
 		return ogWriteBitBufferDword(bit_buffer, value, bits);
 	g_tampered_buffer_count++;
