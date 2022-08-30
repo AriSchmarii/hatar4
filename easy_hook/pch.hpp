@@ -33,7 +33,7 @@ public:
 
 #define create_hook(name, target, hk, og) \
 if (MH_CreateHook(target, hk, (void**)&og) != MH_OK) \
-   std::cout << "cant hook " << name << std::endl; \
+    throw std::exception("failed hooking"); \
 else \
    std::cout << "hooked " << name << std::endl; \
 /*
