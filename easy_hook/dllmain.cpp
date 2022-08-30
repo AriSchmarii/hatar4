@@ -61,7 +61,7 @@ DWORD mainThread(LPVOID lp_param) {
 		FreeConsole();
 		FreeLibraryAndExitThread(static_cast<HMODULE>(lp_param), EXIT_SUCCESS);
 	}
-	catch (std::exception& exc) {
+	catch (const std::exception& exc) {
 		std::cout << exc.what() << std::endl;
 		return EXIT_FAILURE;
 	}
