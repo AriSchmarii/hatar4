@@ -1,8 +1,3 @@
-# hatar4
-are you human scum?
-do you love to fuck people?
-then hatar4 is just right for you!!11!
-# what does hatar4 bring
-crash crash crash
-# why exactly hatar4
-nightfall crash sex
+fucks ups almost every bitbuffer which results in a bunch of errors on the receiver site.
+nightfall (russian gta p2c) was pretty proud of this garbage crash so I made it open source a while ago.
+source is pretty unclean and has a bunch of bad practice in it (based?)
